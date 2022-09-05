@@ -17,7 +17,6 @@ mongoose.connect('mongodb://localhost:27017/books', {useNewUrlParser: true, useU
 
 
 
-// seedData();
 
 //Routes
 //Test route
