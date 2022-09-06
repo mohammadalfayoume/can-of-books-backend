@@ -12,35 +12,45 @@ Clone this repo to your own account with the green "Use this template" button. T
 
 # Project Name
 
-**Author**: Team Member Names Goes Here
-**Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
+**Author**: Mohammad Alfayoume and Tareq
+**Version**: 2.0.0
 
 ## Overview
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
+In this application I created an online bookshelf, so user can add for his library any book he want with title, description and status of book.
+The user also can delete any book from the bookshelf.
+
 
 ## Getting Started
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+I will explain it in steps:
+1- create two repo, one of them for front-end and the other one for back-end
+2- In front-end add a form that meke a user enter the name of book, description and status, and submit button.
+3- In the form add onSubmit handler to add a book
+4- in the add handler submit function you have to send a requist to the server to add a book with his values inside the object and send a request by POST method.
+5- go to the back-end and creat a route and add book handler function to create the new book with values that come from front-end and send a response again to front end with new book.
+6- then you render the new book by set state the new value of books
+7- creat a delete handler to delete any book .
+8- in the delete handler function you have to send a request to the back-end to delete the book by DELETE method and you pass the id number as a params because every book has a unique id number.
+9- in the back-end, create new route with delete handler function.
+10- in the delete handler function you get the book with specific id and send a response to front end.
+
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+for front end we have many components:
+1- About component: It's a Parent for all other components.
+2- Header component: contain a name fo applicaltion and two links that lead user to profile and home route.
+3- BestBooks component that render all books with the form and other stuff.
+4- Footer: contains a footer of my application.
+for back-end it consists of two file:
+1- server.js file
+2- books.js file 
 
-## Change Log
-<!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
 
-01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
+Name of feature: Bookshelf application
 
-## Estimates
-<!-- See below -->
+Estimate of time needed to complete: 5 hrs
 
-## Credit and Collaborations
-<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
+Start time: 5 PM
 
-Name of feature: ________________________________
+Finish time: 1 AM
 
-Estimate of time needed to complete: _____
-
-Start time: _____
-
-Finish time: _____
-
-Actual time needed to complete: _____
+Actual time needed to complete: 8 hrs
