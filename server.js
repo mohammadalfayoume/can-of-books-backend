@@ -30,6 +30,7 @@ app.get("/test", testHandler);
 app.get("/getBooks", getBooksHandler);
 app.post("/addBook", addBooksHandler);
 app.delete("/deleteBook/:id", deleteBooksHandler);
+app.put("/updateBook/:id", updateBooksHandler);
 app.get("*", defaultHandler);
 
 // http://localhost:3001/
@@ -93,6 +94,26 @@ function deleteBooksHandler(req, res) {
     });
   })
 
+}
+
+function updateBooksHandler(req,res){
+  const id = req.params.id
+  const {title,description,status} = req.body; //Destructuring assignment
+  BookModel.findByIdAndUpdate(id,{title,description,status},(err,result)=>{
+    if(err){
+      console.log(err);
+    }
+    else{
+      BookModel.find({}, (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(result);
+          res.send(result);
+        }
+      });
+    }
+  })
 }
 
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
