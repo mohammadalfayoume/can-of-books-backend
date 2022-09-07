@@ -15,9 +15,7 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3001;
 
-let mongoPath =
-  "mongodb://Mohammad:0000@ac-bteciiv-shard-00-00.n4qbk7c.mongodb.net:27017,ac-bteciiv-shard-00-01.n4qbk7c.mongodb.net:27017,ac-bteciiv-shard-00-02.n4qbk7c.mongodb.net:27017/?ssl=true&replicaSet=atlas-bcnmyf-shard-0&authSource=admin&retryWrites=true&w=majority";
-
+let mongoPath = process.env.MONGO_PATH
 // connect mongoose with DB
 mongoose.connect(mongoPath, {
   useNewUrlParser: true,
@@ -53,22 +51,24 @@ function getBooksHandler(req, res) {
     if (err) {
       console.log(err);
     } else {
-      console.log(result);
+      // console.log(result);
       res.send(result);
     }
   });
 }
 
 async function addBooksHandler(req, res) {
-  console.log(req.body);
-  const { title, description, status } = req.body;
+  // console.log(req.body);
+  const { title, description, status,email } = req.body;
   await BookModel.create({
     title: title,
     description: description,
     status: status,
+    email: email
   });
 
   BookModel.find({}, (err, result) => {
+    // console.log(result);
     if (err) {
       console.log(err);
     } else {
@@ -80,40 +80,44 @@ async function addBooksHandler(req, res) {
 
 function deleteBooksHandler(req, res) {
   const bookId = req.params.id;
-  BookModel.deleteOne({
-    _id: bookId
-
-  },(err,result)=>{
-    BookModel.find({}, (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(result);
-        res.send(result);
-      }
-    });
-  })
-
-}
-
-function updateBooksHandler(req,res){
-  const id = req.params.id
-  const {title,description,status} = req.body; //Destructuring assignment
-  BookModel.findByIdAndUpdate(id,{title,description,status},(err,result)=>{
-    if(err){
-      console.log(err);
-    }
-    else{
+  BookModel.deleteOne(
+    {
+      _id: bookId,
+    },
+    (err, result) => {
       BookModel.find({}, (err, result) => {
         if (err) {
           console.log(err);
         } else {
-          console.log(result);
+          // console.log(result);
           res.send(result);
         }
       });
     }
-  })
+  );
+}
+
+function updateBooksHandler(req, res) {
+  const id = req.params.id;
+  const { title, description, status,email } = req.body; //Destructuring assignment
+  BookModel.findByIdAndUpdate(
+    id,
+    { title, description, status,email },
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        BookModel.find({}, (err, result) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(result);
+            res.send(result);
+          }
+        });
+      }
+    }
+  );
 }
 
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
